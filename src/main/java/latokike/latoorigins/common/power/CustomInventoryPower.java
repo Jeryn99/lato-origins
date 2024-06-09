@@ -39,7 +39,7 @@ public class CustomInventoryPower extends Power implements Active, Inventory {
 
     @Override
     public void onUse() {
-        if(!entity.world.isClient && entity instanceof PlayerEntity player) {
+        if(!entity.getEntityWorld().isClient && entity instanceof PlayerEntity player) {
             player.openHandledScreen(new SimpleNamedScreenHandlerFactory(factory, Text.of(name)));
         }
     }

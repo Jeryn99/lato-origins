@@ -1,6 +1,8 @@
 plugins {
     id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
+    id 'io.github.ladysnake.chenille' version '0.13.1'
+
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -21,7 +23,7 @@ repositories {
     }
     maven {
         name "player ability lib"
-        url "https://ladysnake.jfrog.io/artifactory/mods"
+        url "https://maven.ladysnake.org/releases"
     }
     maven {
         name "reach entity attributes"
@@ -31,6 +33,16 @@ repositories {
         name "jitpack"
         url "https://jitpack.io"
     }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+    chenille.repositories.allCommonRepositories()
+    maven {
+        name "carpet"
+        url "https://masa.dy.fi/maven"
+    }
+
 }
 
 dependencies {
@@ -39,10 +51,15 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    modImplementation "com.github.apace100:origins-fabric:${origins_version}"
+    modImplementation "com.github.apace100:apoli:v2.11.11"
+    modImplementation 'com.github.apace100:calio:v1.13.3'
+
+    modImplementation "com.github.apace100:origins-fabric:${project.origins_version}"
+
     modImplementation("com.github.virtuoel:pehkui:${pehkui_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+
 }
 
 processResources {

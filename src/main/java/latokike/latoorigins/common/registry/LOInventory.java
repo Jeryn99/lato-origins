@@ -11,8 +11,8 @@ import io.github.apace100.calio.data.SerializableDataTypes;
 import latokike.latoorigins.common.LatoOrigins;
 import latokike.latoorigins.common.power.CustomInventoryPower;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

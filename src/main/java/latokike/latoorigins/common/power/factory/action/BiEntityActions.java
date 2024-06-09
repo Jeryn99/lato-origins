@@ -7,8 +7,8 @@ import latokike.latoorigins.common.LatoOrigins;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.TameableShoulderEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Pair;
-import net.minecraft.util.registry.Registry;
 
 public class BiEntityActions {
 

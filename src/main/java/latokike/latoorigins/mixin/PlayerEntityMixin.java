@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -33,10 +34,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	public void interact(Entity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
 		if (entity instanceof PlayerEntity && LOPowers.RIDEABLE_CREATURE.isActive(entity)) {
 			if (!this.hasPassengers() && !((PlayerEntity)(Object)this).shouldCancelInteraction()) {
-				if (!this.world.isClient) {
+				if (!this.getWorld().isClient) {
 					(this).startRiding(entity);
 				}
-				cir.setReturnValue(ActionResult.success(this.world.isClient));
+				cir.setReturnValue(ActionResult.success(this.getWorld().isClient));
 			} else {
 				cir.setReturnValue(ActionResult.FAIL);
 			}
@@ -46,11 +47,12 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	@Inject(method = "damage", at = @At(value = "HEAD"))
 	public void damage$LatoOrigins(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
 		List<SpikedPower> spikedPowers = PowerHolderComponent.getPowers(((PlayerEntity)(Object)this), SpikedPower.class);
-		if (source.getSource() instanceof LivingEntity && !source.isMagic() && !source.isExplosive() && spikedPowers.size() > 0) {
+		if (source.getSource() instanceof LivingEntity livingEntity && !source.isOf(DamageTypes.MAGIC) && !source.isOf(DamageTypes.EXPLOSION) && !source.isOf(DamageTypes.PLAYER_EXPLOSION) && !spikedPowers.isEmpty()) {
 			int damage = spikedPowers.stream().map(SpikedPower::getSpikeDamage).reduce(Integer::sum).get();
 			System.out.println(damage);
 			if ((this).getRandom().nextFloat() <= 0.75) {
-				source.getSource().damage(DamageSource.thorns(((PlayerEntity)(Object)this)), damage);
+				DamageSource thorns = livingEntity.getWorld().getDamageSources().thorns((PlayerEntity) (Object) this);
+				source.getSource().damage(thorns, damage);
 			}
 		}
 	}

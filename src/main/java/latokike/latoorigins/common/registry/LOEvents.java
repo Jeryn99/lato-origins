@@ -25,10 +25,10 @@ public class LOEvents {
                         ItemStack stack = player.getStackInHand(hand);
                         if (stack.getItem() == Items.FLINT_AND_STEEL) {
                             if (!player.isCreative()) {
-                                player.world.playSound(player, player.getX(), player.getY(), player.getZ(),
+                                player.getWorld().playSound(player, player.getX(), player.getY(), player.getZ(),
                                         SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 1.0F,
-                                        player.world.random.nextFloat() * 0.4F + 0.8F);
-                                if (!player.world.isClient) {
+                                        player.getWorld().random.nextFloat() * 0.4F + 0.8F);
+                                if (!player.getWorld().isClient) {
                                     power.onUse();
                                     stack.damage(1, (LivingEntity) player, (Consumer) ((playerEntity) -> {
                                         player.sendToolBreakStatus(hand);

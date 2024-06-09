@@ -10,10 +10,10 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class EntityActions {
 
@@ -33,19 +33,19 @@ public class EntityActions {
                 } else {
                     category = SoundCategory.NEUTRAL;
                 }
-                entity.world.playSound(null, (entity).getX(), (entity).getY(), (entity).getZ(), new SoundEvent(new Identifier(data.getString("sound"))),
+                entity.getWorld().playSound(null, (entity).getX(), (entity).getY(), (entity).getZ(), SoundEvent.of(new Identifier(data.getString("sound"))),
                 	category, data.getFloat("volume"), data.getFloat("pitch"));
             }));
         register(new ActionFactory<>(LatoOrigins.identifier("give_item"), new SerializableData()
                 .add("item", SerializableDataTypes.ITEM_STACK),
                 (data, entity) -> {
-                    if(!entity.world.isClient()) {
+                    if (!entity.getWorld().isClient()) {
                         ItemStack item = (ItemStack)data.get("item");
                         item = item.copy();
                         if(entity instanceof PlayerEntity player) {
                             player.getInventory().offerOrDrop(item);
                         } else {
-                            entity.world.spawnEntity(new ItemEntity(entity.world, entity.getX(), entity.getY(), entity.getZ(), item));
+                            entity.getWorld().spawnEntity(new ItemEntity(entity.getWorld(), entity.getX(), entity.getY(), entity.getZ(), item));
                         }
                     }
                 }));

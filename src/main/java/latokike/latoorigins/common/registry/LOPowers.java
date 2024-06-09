@@ -17,8 +17,8 @@ import latokike.latoorigins.common.power.ModifyBehaviorPower;
 import latokike.latoorigins.common.power.ModifySizePower;
 import latokike.latoorigins.common.power.SpikedPower;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

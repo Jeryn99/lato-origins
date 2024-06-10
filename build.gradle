@@ -51,8 +51,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    modImplementation "com.github.apace100:apoli:v2.11.11"
-    modImplementation 'com.github.apace100:calio:v1.13.3'
+    modImplementation "com.github.apace100:apoli:v2.9.0"
+  //  modImplementation 'com.github.apace100:calio:v1.13.3'
 
     modImplementation "com.github.apace100:origins-fabric:${project.origins_version}"
 
